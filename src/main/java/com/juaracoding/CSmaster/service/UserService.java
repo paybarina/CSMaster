@@ -5,6 +5,7 @@ import com.juaracoding.CSmaster.configuration.OtherConfig;
 import com.juaracoding.CSmaster.core.BcryptImpl;
 import com.juaracoding.CSmaster.dto.ForgetPasswordDTO;
 import com.juaracoding.CSmaster.handler.ResponseHandler;
+import com.juaracoding.CSmaster.model.Akses;
 import com.juaracoding.CSmaster.model.Userz;
 import com.juaracoding.CSmaster.repo.UserRepo;
 import com.juaracoding.CSmaster.utils.ConstantMessage;
@@ -39,7 +40,6 @@ public class UserService {
         int intVerification = new Random().nextInt(100000,999999);
         List<Userz> listUserResult = userRepo.findByEmailOrNoHPOrUsername(userz.getEmail(),userz.getNoHP(),userz.getUsername());//INI VALIDASI USER IS EXISTS
         String emailForSMTP = "";
-//        Boolean isSuccess = true;
         try
         {
             if(listUserResult.size()!=0)//kondisi mengecek apakah user terdaftar
@@ -98,6 +98,7 @@ public class UserService {
                 HttpStatus.CREATED,null,null,request);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Map<String,Object> confirmRegis(Userz userz, String emails, WebRequest request) {
         List<Userz> listUserResult = userRepo.findByEmail(emails);
         try
@@ -111,6 +112,9 @@ public class UserService {
                             HttpStatus.NOT_ACCEPTABLE,null,"FV01005",request);
                 }
                 nextUser.setIsDelete((byte) 1);//SET REGISTRASI BERHASIL
+                Akses akses = new Akses();
+                akses.setIdAkses(1L);
+                nextUser.setAkses(akses);
             }
             else
             {

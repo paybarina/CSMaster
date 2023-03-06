@@ -5,17 +5,23 @@ import com.juaracoding.CSmaster.dto.ForgetPasswordDTO;
 import com.juaracoding.CSmaster.dto.UserDTO;
 import com.juaracoding.CSmaster.model.Userz;
 import com.juaracoding.CSmaster.utils.CaptchaUtils;
+import com.juaracoding.CSmaster.utils.MappingAttribute;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("api/check")
 public class CheckPageController {
 
+    private Map<String,Object> objectMapper = new HashMap<String,Object>();
+    private MappingAttribute mappingAttribute = new MappingAttribute();
 
     @GetMapping("/signin")
     public String pageOne(Model model)
@@ -45,8 +51,9 @@ public class CheckPageController {
     }
 
     @GetMapping("/index1")
-    public String pageFour()
+    public String pageFour(Model model, WebRequest request)
     {
+        mappingAttribute.setAttribute(model,objectMapper,request);
         return "index_1";
 
     }

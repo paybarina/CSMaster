@@ -18,6 +18,17 @@ public class OtherConfig {
 
     private static String flagSMTPActive;
 
+    private static String flagSessionValidation;
+
+    public static String getFlagSessionValidation() {
+        return flagSessionValidation;
+    }
+
+    @Value("${flag.session.validation}")
+    private void setFlagSessionValidation(String flagSessionValidation) {
+        OtherConfig.flagSessionValidation = flagSessionValidation;
+    }
+
     public static String getFlagSMTPActive() {
         return flagSMTPActive;
     }

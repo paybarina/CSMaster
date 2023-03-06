@@ -1,5 +1,6 @@
 package com.juaracoding.CSmaster.controller;
 
+import com.juaracoding.CSmaster.configuration.OtherConfig;
 import com.juaracoding.CSmaster.model.Student;
 import com.juaracoding.CSmaster.service.StudentService;
 import com.juaracoding.CSmaster.utils.MappingAttribute;
@@ -29,9 +30,12 @@ public class StudentController {
 	// handler method to handle list students and return mode and view
 	@GetMapping("/v1/students")
 	public String listStudents(Model model, WebRequest request) {
-		mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
-		if(request.getAttribute("USR_ID",1)==null){
-			return "redirect:/api/check/logout";
+		if(OtherConfig.getFlagSessionValidation().equals("y"))
+		{
+			mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
+			if(request.getAttribute("USR_ID",1)==null){
+				return "redirect:/api/check/logout";
+			}
 		}
 		model.addAttribute("students", studentService.getAllStudents());
 		model.addAttribute("students1", new Student());
@@ -40,9 +44,11 @@ public class StudentController {
 	
 	@GetMapping("/v1/students/new")
 	public String createStudentForm(Model model,WebRequest request) {
-		mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
-		if(request.getAttribute("USR_ID",1)==null){
-			return "redirect:/api/check/logout";
+		if(OtherConfig.getFlagSessionValidation().equals("y")) {
+			mappingAttribute.setAttribute(model, objectMapper, request);//untuk set session
+			if (request.getAttribute("USR_ID", 1) == null) {
+				return "redirect:/api/check/logout";
+			}
 		}
 		// create student object to hold student form data
 		Student student = new Student();
@@ -53,9 +59,11 @@ public class StudentController {
 	
 	@PostMapping("/v1/students")
 	public String saveStudent(@ModelAttribute("student") Student student,Model model,WebRequest request) {
-		mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
-		if(request.getAttribute("USR_ID",1)==null){
-			return "redirect:/api/check/logout";
+		if(OtherConfig.getFlagSessionValidation().equals("y")) {
+			mappingAttribute.setAttribute(model, objectMapper, request);//untuk set session
+			if (request.getAttribute("USR_ID", 1) == null) {
+				return "redirect:/api/check/logout";
+			}
 		}
 		studentService.saveStudent(student);
 		return "redirect:/api/school/v1/students";
@@ -63,9 +71,11 @@ public class StudentController {
 	
 	@GetMapping("/v1/students/edit/{id}")
 	public String editStudentForm(@PathVariable Long id, Model model,WebRequest request) {
-		mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
-		if(request.getAttribute("USR_ID",1)==null){
-			return "redirect:/api/check/logout";
+		if(OtherConfig.getFlagSessionValidation().equals("y")) {
+			mappingAttribute.setAttribute(model, objectMapper, request);//untuk set session
+			if (request.getAttribute("USR_ID", 1) == null) {
+				return "redirect:/api/check/logout";
+			}
 		}
 		model.addAttribute("student", studentService.getStudentById(id));
 		return "edit_student";
@@ -75,9 +85,11 @@ public class StudentController {
 	public String updateStudent(@PathVariable Long id,
 			@ModelAttribute("student") Student student,
 			Model model, WebRequest request) {
-		mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
-		if(request.getAttribute("USR_ID",1)==null){
-			return "redirect:/api/check/logout";
+		if(OtherConfig.getFlagSessionValidation().equals("y")) {
+			mappingAttribute.setAttribute(model, objectMapper, request);//untuk set session
+			if (request.getAttribute("USR_ID", 1) == null) {
+				return "redirect:/api/check/logout";
+			}
 		}
 		// get student from database by id
 		Student existingStudent = studentService.getStudentById(id);
@@ -95,9 +107,11 @@ public class StudentController {
 	
 	@GetMapping("/v1/students/{id}")
 	public String deleteStudent(@PathVariable Long id, Model model, WebRequest request) {
-		mappingAttribute.setAttribute(model,objectMapper,request);//untuk set session
-		if(request.getAttribute("USR_ID",1)==null){
-			return "redirect:/api/check/logout";
+		if(OtherConfig.getFlagSessionValidation().equals("y")) {
+			mappingAttribute.setAttribute(model, objectMapper, request);//untuk set session
+			if (request.getAttribute("USR_ID", 1) == null) {
+				return "redirect:/api/check/logout";
+			}
 		}
 		studentService.deleteStudentById(id);
 		return "redirect:/students";

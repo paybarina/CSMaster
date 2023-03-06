@@ -64,5 +64,23 @@
                 </div>
             </div>
 
+        <div>
+            <button>CUMIX</button>
+        </div>
+<ul th:each="childArrays,setIndex:${AKZEZ}" >
+    <a href="#" th:text="${AKZEZ.get(setIndex.index).strStringTestwo}"/>
+        <li th:each="childElement:${childArrays.listMenu}">
+            <a th:href="@{${childElement.linkSubMenu}}" th:text="${childElement.linkSubMenu}"/>
+        </li>
+</ul>
+
+<!--        <ul>-->
+<!--            <p th:utext="${session.LINK_MENU}">Welcome to our grocery store!</p>-->
+<!--</ul>-->
+
+<!--        <div id="myDiv">HELLO WORLD</div>-->
+<!--<script>-->
+<!--    document.getElementById("myDiv").innerHTML="<strong>KANCUT KANCUT</strong>";-->
+<!--</script>-->
 </body>
 </html>

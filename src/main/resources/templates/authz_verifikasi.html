@@ -26,10 +26,12 @@
                 <input type="password" th:field = "*{token}" name="token" id="tokenz" maxlength="6"/>
             </div>
         <div>
-          <button type="submit">Kirim</button>
+          <button class="btn-block" type="submit">Kirim</button>
         </div>
-            <hr>
-            <a th:href = "@{/api/authz/v1/taketoken?email={mailz} (mailz=${verifyEmail})}">New Token</a>
+
+            <div>
+                <a class="btn btn-block" th:href = "@{/api/authz/v1/taketoken?email={mailz} (mailz=${verifyEmail})}">New Token</a>
+            </div>
       </form>
     </div>
   </div>

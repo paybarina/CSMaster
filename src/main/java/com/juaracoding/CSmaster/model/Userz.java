@@ -82,6 +82,18 @@ public class Userz {
     @Column(name = "NoHP")
     private String noHP;
 
+    @ManyToOne
+    @JoinColumn(name = "IDAkses")
+    private Akses akses;
+
+    public Akses getAkses() {
+        return akses;
+    }
+
+    public void setAkses(Akses akses) {
+        this.akses = akses;
+    }
+
     public String getNoHP() {
         return noHP;
     }
